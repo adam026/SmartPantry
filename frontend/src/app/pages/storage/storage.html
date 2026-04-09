@@ -1,5 +1,55 @@
 <h1>Tárolók</h1>
 
+<form class="form-container" (ngSubmit)="addIngredient()">
+  <h2>Új alapanyag</h2>
+
+  <input
+    type="text"
+    name="name"
+    [(ngModel)]="newIngredient.name"
+    placeholder="Név"
+    required
+  />
+
+  <input
+    type="number"
+    name="quantity"
+    [(ngModel)]="newIngredient.quantity"
+    placeholder="Mennyiség"
+    required
+  />
+
+  <input
+    type="text"
+    name="unit"
+    [(ngModel)]="newIngredient.unit"
+    placeholder="Egység"
+    required
+  />
+
+  <select
+    name="location"
+    [(ngModel)]="newIngredient.location"
+  >
+    <option value="fridge">Hűtő</option>
+    <option value="pantry">Tároló</option>
+  </select>
+
+  <label for="expiresAt">Lejárat:</label>
+
+  <input
+    id="expiresAt"
+    type="date"
+    name="expiresAt"
+    [(ngModel)]="newIngredient.expiresAt"
+    required
+  />
+
+  <button type="submit">Hozzáadás</button>
+</form>
+
+<hr />
+
 @if (ingredients.length === 0) {
   <p>Nincs még alapanyag.</p>
 }

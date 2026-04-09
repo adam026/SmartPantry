@@ -23,4 +23,8 @@ export class IngredientService {
   getIngredients(): Observable<Ingredient[]> {
     return this.http.get<Ingredient[]>(this.apiUrl);
   }
+
+  addIngredient(ingredient: Ingredient): Observable<Ingredient> {
+    return this.http.post<Ingredient>(this.apiUrl, ingredient);
+  }
 }

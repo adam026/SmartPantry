@@ -1,3 +1,21 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin-bottom: 24px;
+}
+
+input, select, button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  cursor: pointer;
+}
+
 .ingredient-card {
   border: 1px solid #ddd;
   border-radius: 12px;
