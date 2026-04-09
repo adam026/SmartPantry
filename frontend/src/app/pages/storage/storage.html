@@ -1,2 +1,16 @@
 <h1>Tárolók</h1>
-<p>Itt jelennek majd meg az alapanyagok.</p>
+
+@if (ingredients.length === 0) {
+  <p>Nincs még alapanyag.</p>
+}
+
+@for (ingredient of ingredients; track ingredient.id) {
+  <div class="ingredient-card">
+    <h3>{{ ingredient.name }}</h3>
+
+    <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
+    <p>Hely: {{ ingredient.location }}</p>
+    <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
+    <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
+  </div>
+}
