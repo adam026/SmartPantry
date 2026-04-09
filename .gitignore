@@ -1,0 +1,20 @@
+# ASP.NET
+backend/bin/
+backend/obj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.cache/
+
+# Docker
+**/Dockerfile.user
+docker-data/
+
+# Logs
+*.log
