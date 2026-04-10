@@ -50,17 +50,36 @@
 
 <hr />
 
-@if (ingredients.length === 0) {
-  <p>Nincs még alapanyag.</p>
+<h2>Hűtő</h2>
+
+@if (fridgeIngredients.length === 0) {
+  <p>Nincs alapanyag a hűtőben.</p>
 }
 
-@for (ingredient of ingredients; track ingredient.id) {
-  <div class="ingredient-card">
-    <h3>{{ ingredient.name }}</h3>
+<div class="ingredient-grid">
+  @for (ingredient of fridgeIngredients; track ingredient.id) {
+    <div class="ingredient-card">
+      <h3>{{ ingredient.name }}</h3>
+      <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
+      <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
+      <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
+    </div>
+  }
+</div>
 
-    <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
-    <p>Hely: {{ ingredient.location }}</p>
-    <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
-    <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
-  </div>
+<h2>Tároló</h2>
+
+@if (pantryIngredients.length === 0) {
+  <p>Nincs alapanyag a tárolóban.</p>
 }
+
+<div class="ingredient-grid">
+  @for (ingredient of pantryIngredients; track ingredient.id) {
+    <div class="ingredient-card">
+      <h3>{{ ingredient.name }}</h3>
+      <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
+      <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
+      <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
+    </div>
+  }
+</div>

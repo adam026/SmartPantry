@@ -56,4 +56,12 @@ export class Storage implements OnInit {
       this.loadIngredients();
     });
   }
+
+  get fridgeIngredients(): Ingredient[] {
+    return this.ingredients.filter(i => i.location === 'fridge');
+  }
+
+  get pantryIngredients(): Ingredient[] {
+    return this.ingredients.filter(i => i.location === 'pantry');
+  }
 }

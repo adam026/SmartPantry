@@ -23,3 +23,15 @@ button {
   margin-bottom: 16px;
   max-width: 400px;
 }
+
+.ingredient-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.ingredient-card {
+  min-width: 250px;
+  background: #f8f8f8;
+}
