@@ -1,2 +1,25 @@
 <h1>Receptek</h1>
-<p>Itt jelennek majd meg a receptek.</p>
+
+<div class="recipe-grid">
+  @for (recipe of recipes; track recipe.name) {
+    <div class="recipe-card">
+      <h2>{{ recipe.name }}</h2>
+
+      <p>{{ recipe.description }}</p>
+
+      <h4>Hozzávalók:</h4>
+
+      <ul>
+        @for (ingredient of recipe.ingredients; track ingredient) {
+          <li>{{ ingredient }}</li>
+        }
+      </ul>
+
+      @if (hasAllIngredients(recipe)) {
+        <p class="available">Minden hozzávaló rendelkezésre áll</p>
+      } @else {
+        <p class="missing">Hiányzik néhány hozzávaló</p>
+      }
+    </div>
+  }
+</div>

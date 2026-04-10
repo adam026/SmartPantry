@@ -38,6 +38,8 @@ export class Storage implements OnInit {
   loadIngredients(): void {
     this.ingredientService.getIngredients().subscribe(data => {
       this.ingredients = data.filter(i => i.name && i.name.trim().length > 0);
+
+      localStorage.setItem('ingredients', JSON.stringify(this.ingredients));
     });
   }
 
@@ -86,6 +88,7 @@ export class Storage implements OnInit {
         this.ingredients = [...this.ingredients, created];
         this.closeModal();
         this.isSaving = false;
+        localStorage.setItem('ingredients', JSON.stringify(this.ingredients));
       },
       error: () => {
         this.isSaving = false;

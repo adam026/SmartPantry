@@ -1,0 +1,22 @@
+.recipe-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.recipe-card {
+  width: 320px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f4f4f4;
+}
+
+.available {
+  color: green;
+  font-weight: bold;
+}
+
+.missing {
+  color: red;
+  font-weight: bold;
+}
