@@ -63,6 +63,9 @@
       <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
       <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
       <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
+      <button type="button" (click)="addToShoppingList(ingredient)">
+        Bevásárlólistához
+      </button>
     </div>
   }
 </div>
@@ -80,6 +83,9 @@
       <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
       <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
       <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
+      <button type="button" (click)="addToShoppingList(ingredient)">
+        Bevásárlólistához
+      </button>
     </div>
   }
 </div>

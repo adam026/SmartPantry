@@ -1,2 +1,53 @@
 <h1>Bevásárlólista</h1>
-<p>Itt tudod kezelni a hiányzó alapanyagokat.</p>
+
+<form class="shopping-form" (ngSubmit)="addItem()">
+  <input
+    type="text"
+    name="name"
+    [(ngModel)]="newItem.name"
+    placeholder="Termék neve"
+    required
+  />
+
+  <input
+    type="number"
+    name="quantity"
+    [(ngModel)]="newItem.quantity"
+    placeholder="Mennyiség"
+    required
+  />
+
+  <input
+    type="text"
+    name="unit"
+    [(ngModel)]="newItem.unit"
+    placeholder="Egység"
+  />
+
+  <button type="submit">Hozzáadás</button>
+</form>
+
+@if (items.length === 0) {
+  <p>Még nincs elem a bevásárlólistában.</p>
+}
+
+<div class="shopping-items">
+  @for (item of items; track item.name) {
+    <div class="shopping-card" [class.bought]="item.bought">
+      <div>
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.quantity }} {{ item.unit }}</p>
+      </div>
+
+      <div class="actions">
+        <button type="button" (click)="toggleBought(item)">
+          {{ item.bought ? 'Visszaállítás' : 'Megvettem' }}
+        </button>
+
+        <button type="button" (click)="deleteItem(item)">
+          Törlés
+        </button>
+      </div>
+    </div>
+  }
+</div>

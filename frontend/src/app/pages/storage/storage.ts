@@ -64,4 +64,19 @@ export class Storage implements OnInit {
   get pantryIngredients(): Ingredient[] {
     return this.ingredients.filter(i => i.location === 'pantry');
   }
+
+  addToShoppingList(ingredient: Ingredient): void {
+    const saved = localStorage.getItem('shopping-list');
+
+    const items = saved ? JSON.parse(saved) : [];
+
+    items.push({
+      name: ingredient.name,
+      quantity: ingredient.quantity,
+      unit: ingredient.unit,
+      bought: false
+    });
+
+    localStorage.setItem('shopping-list', JSON.stringify(items));
+  }
 }
