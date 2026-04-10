@@ -1,54 +1,38 @@
 <h1>Tárolók</h1>
 
-<form class="form-container" (ngSubmit)="addIngredient()">
-  <h2>Új alapanyag</h2>
+<div class="storage-header">
+  <button class="add-button" (click)="openModal()">Új alapanyag</button>
+</div>
 
-  <input
-    type="text"
-    name="name"
-    [(ngModel)]="newIngredient.name"
-    placeholder="Név"
-    required
-  />
+@if (showModal) {
+  <div class="modal-backdrop">
+    <div class="modal">
+      <h2>Új alapanyag</h2>
 
-  <input
-    type="number"
-    name="quantity"
-    [(ngModel)]="newIngredient.quantity"
-    placeholder="Mennyiség"
-    required
-  />
+      <input [(ngModel)]="newIngredient.name" placeholder="Név" />
 
-  <input
-    type="text"
-    name="unit"
-    [(ngModel)]="newIngredient.unit"
-    placeholder="Egység"
-    required
-  />
+      <input [(ngModel)]="newIngredient.quantity" type="number" placeholder="Mennyiség" />
 
-  <select
-    name="location"
-    [(ngModel)]="newIngredient.location"
-  >
-    <option value="fridge">Hűtő</option>
-    <option value="pantry">Tároló</option>
-  </select>
+      <input [(ngModel)]="newIngredient.unit" placeholder="Egység" />
 
-  <label for="expiresAt">Lejárat:</label>
+      <select [(ngModel)]="newIngredient.location">
+        <option value="fridge">Hűtő</option>
+        <option value="pantry">Tároló</option>
+      </select>
 
-  <input
-    id="expiresAt"
-    type="date"
-    name="expiresAt"
-    [(ngModel)]="newIngredient.expiresAt"
-    required
-  />
+      <input [(ngModel)]="newIngredient.expiresAt" type="date" />
 
-  <button type="submit">Hozzáadás</button>
-</form>
+      @if (errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+      }
 
-<hr />
+      <div class="modal-actions">
+        <button type="button" (click)="closeModal()">Mégse</button>
+        <button type="button" (click)="saveIngredient()">Hozzáadás</button>
+      </div>
+    </div>
+  </div>
+}
 
 <h2>Hűtő</h2>
 
