@@ -1,8 +1,14 @@
-.title {
-  font-size: 22px;
-  font-weight: bold;
+.navbar .nav-link {
+  border-radius: 10px;
+  padding: 8px 14px;
+  transition: 0.2s ease;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.navbar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.navbar .nav-link.active {
+  background: #0d6efd;
+  color: white !important;
 }

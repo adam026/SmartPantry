@@ -1,2 +1,82 @@
-<h1>Üdv a SmartPantry alkalmazásban!</h1>
-<p>Itt nyomon követheted a hűtőben és tárolóban lévő alapanyagokat.</p>
+<div class="container py-5">
+
+  <div class="hero-section text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3">
+      🥫 SmartPantry
+    </h1>
+
+    <p class="lead text-muted mx-auto hero-text">
+      Kövesd nyomon a hűtőben és tárolóban lévő alapanyagokat,
+      készíts bevásárlólistát és fedezz fel recepteket a meglévő hozzávalóid alapján.
+    </p>
+  </div>
+
+  <div class="row g-4 mb-5">
+
+    <div class="col-md-4">
+      <div class="card dashboard-card border-0 shadow-sm h-100">
+        <div class="card-body text-center p-4">
+          <div class="display-5 mb-3">🧊</div>
+          <h3 class="fw-bold">Tárolók</h3>
+          <p class="text-muted">
+            Kezeld a hűtőben és tárolóban lévő alapanyagokat, lejárati dátummal együtt.
+          </p>
+          <a routerLink="/storage" class="btn btn-outline-primary">
+            Megnyitás
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card dashboard-card border-0 shadow-sm h-100">
+        <div class="card-body text-center p-4">
+          <div class="display-5 mb-3">🛒</div>
+          <h3 class="fw-bold">Bevásárlólista</h3>
+          <p class="text-muted">
+            Tartsd nyilván, mit kell beszerezned a következő bevásárlásnál.
+          </p>
+          <a routerLink="/shopping-list" class="btn btn-outline-success">
+            Megnyitás
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card dashboard-card border-0 shadow-sm h-100">
+        <div class="card-body text-center p-4">
+          <div class="display-5 mb-3">🍳</div>
+          <h3 class="fw-bold">Receptek</h3>
+          <p class="text-muted">
+            Nézd meg, milyen ételeket tudsz elkészíteni a meglévő alapanyagokból.
+          </p>
+          <a routerLink="/recipes" class="btn btn-outline-warning">
+            Megnyitás
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card border-0 shadow-sm p-4 info-card">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h2 class="fw-bold mb-3">Miért hasznos a SmartPantry?</h2>
+
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2">✅ Segít elkerülni a lejárt élelmiszereket</li>
+          <li class="mb-2">✅ Átláthatóvá teszi a készleteidet</li>
+          <li class="mb-2">✅ Gyorsabbá teszi a bevásárlást</li>
+          <li>✅ Receptek alapján segít felhasználni a hozzávalókat</li>
+        </ul>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <div class="display-1">📦</div>
+      </div>
+    </div>
+  </div>
+
+</div>

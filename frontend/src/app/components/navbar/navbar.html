@@ -1,11 +1,37 @@
-<mat-toolbar color="primary">
-  <span class="title">SmartPantry</span>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm px-4">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-3" routerLink="/">SmartPantry</a>
 
-  <span class="spacer"></span>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <a mat-button routerLink="/">Főoldal</a>
-  <a mat-button routerLink="/storage">Tárolók</a>
-  <a mat-button routerLink="/shopping-list">Bevásárlólista</a>
-  <a mat-button routerLink="/recipes">Receptek</a>
-  <a mat-button routerLink="/about">Rólunk</a>
-</mat-toolbar>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto gap-2">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Főoldal</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/storage">Tárolók</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/shopping-list">Bevásárlólista</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/recipes">Receptek</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">Rólunk</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

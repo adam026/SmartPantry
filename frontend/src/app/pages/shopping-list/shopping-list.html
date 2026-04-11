@@ -1,53 +1,101 @@
-<h1>Bevásárlólista</h1>
+<div class="container py-4">
 
-<form class="shopping-form" (ngSubmit)="addItem()">
-  <input
-    type="text"
-    name="name"
-    [(ngModel)]="newItem.name"
-    placeholder="Termék neve"
-    required
-  />
+  <div class="mb-4">
+    <h1 class="fw-bold">🛒 Bevásárlólista</h1>
+    <p class="text-muted">A következő bevásárláshoz szükséges termékek</p>
+  </div>
 
-  <input
-    type="number"
-    name="quantity"
-    [(ngModel)]="newItem.quantity"
-    placeholder="Mennyiség"
-    required
-  />
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+      <form class="row g-3 align-items-end" (ngSubmit)="addItem()">
 
-  <input
-    type="text"
-    name="unit"
-    [(ngModel)]="newItem.unit"
-    placeholder="Egység"
-  />
+        <div class="col-md-5">
+          <label class="form-label">Termék neve</label>
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            [(ngModel)]="newItem.name"
+            placeholder="pl. Tojás"
+            required
+          />
+        </div>
 
-  <button type="submit">Hozzáadás</button>
-</form>
+        <div class="col-md-2">
+          <label class="form-label">Mennyiség</label>
+          <input
+            class="form-control"
+            type="number"
+            name="quantity"
+            [(ngModel)]="newItem.quantity"
+            required
+          />
+        </div>
 
-@if (items.length === 0) {
-  <p>Még nincs elem a bevásárlólistában.</p>
-}
+        <div class="col-md-3">
+          <label class="form-label">Egység</label>
+          <input
+            class="form-control"
+            type="text"
+            name="unit"
+            [(ngModel)]="newItem.unit"
+            placeholder="db, l, kg"
+          />
+        </div>
 
-<div class="shopping-items">
-  @for (item of items; track item.name) {
-    <div class="shopping-card" [class.bought]="item.bought">
-      <div>
-        <h3>{{ item.name }}</h3>
-        <p>{{ item.quantity }} {{ item.unit }}</p>
-      </div>
+        <div class="col-md-2 d-grid">
+          <button class="btn btn-primary" type="submit">
+            Hozzáadás
+          </button>
+        </div>
 
-      <div class="actions">
-        <button type="button" (click)="toggleBought(item)">
-          {{ item.bought ? 'Visszaállítás' : 'Megvettem' }}
-        </button>
+      </form>
+    </div>
+  </div>
 
-        <button type="button" (click)="deleteItem(item)">
-          Törlés
-        </button>
-      </div>
+  @if (items.length === 0) {
+    <div class="alert alert-light border shadow-sm">
+      Még nincs elem a bevásárlólistában.
     </div>
   }
+
+  <div class="row g-3">
+    @for (item of items; track item.name) {
+      <div class="col-12">
+        <div
+          class="card border-0 shadow-sm shopping-card"
+          [class.bought]="item.bought">
+
+          <div class="card-body d-flex justify-content-between align-items-center">
+
+            <div>
+              <h3 class="mb-1">{{ item.name }}</h3>
+              <p class="text-muted mb-0">
+                {{ item.quantity }} {{ item.unit }}
+              </p>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button
+                class="btn"
+                [class.btn-success]="!item.bought"
+                [class.btn-outline-secondary]="item.bought"
+                type="button"
+                (click)="toggleBought(item)">
+                {{ item.bought ? 'Visszaállítás' : 'Megvettem' }}
+              </button>
+
+              <button
+                class="btn btn-outline-danger"
+                type="button"
+                (click)="deleteItem(item)">
+                Törlés
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    }
+  </div>
 </div>

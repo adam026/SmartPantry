@@ -1,22 +1,22 @@
-.recipe-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
 .recipe-card {
-  width: 320px;
-  padding: 20px;
-  border-radius: 12px;
-  background: #f4f4f4;
+  border-radius: 22px;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
 }
 
-.available {
-  color: green;
-  font-weight: bold;
+.recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.12) !important;
 }
 
-.missing {
-  color: red;
-  font-weight: bold;
+.recipe-card .card-title {
+  font-size: 2rem;
+}
+
+.ingredient-badge {
+  font-size: 0.95rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }

@@ -1,42 +1,17 @@
-.shopping-form {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
-.shopping-form input,
-.shopping-form button {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.shopping-items {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .shopping-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  border-radius: 12px;
-  background: #f4f4f4;
+  border-radius: 18px;
+  transition: all 0.2s ease;
+}
+
+.shopping-card:hover {
+  transform: translateY(-2px);
 }
 
 .shopping-card.bought {
-  opacity: 0.6;
+  opacity: 0.65;
+}
+
+.shopping-card.bought h3,
+.shopping-card.bought p {
   text-decoration: line-through;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-}
-
-.actions button {
-  padding: 8px 12px;
 }
