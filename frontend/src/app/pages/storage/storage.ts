@@ -18,6 +18,9 @@ export class Storage implements OnInit {
   showModal = false;
   errorMessage = '';
 
+  showUsedModal = false;
+  selectedIngredient: Ingredient | null = null;
+
   newIngredient: Ingredient = this.createEmptyIngredient();
 
   ngOnInit(): void {
@@ -36,9 +39,14 @@ export class Storage implements OnInit {
   }
 
   loadIngredients(): void {
+    const cached = localStorage.getItem('ingredients');
+
+    if (cached) {
+      this.ingredients = JSON.parse(cached);
+    }
+
     this.ingredientService.getIngredients().subscribe(data => {
       this.ingredients = data.filter(i => i.name && i.name.trim().length > 0);
-
       localStorage.setItem('ingredients', JSON.stringify(this.ingredients));
     });
   }
@@ -59,6 +67,8 @@ export class Storage implements OnInit {
     if (this.isSaving) {
       return;
     }
+
+    this.errorMessage = '';
 
     if (!this.newIngredient.name.trim()) {
       this.errorMessage = 'A név megadása kötelező.';
@@ -81,16 +91,20 @@ export class Storage implements OnInit {
       ...this.newIngredient,
       addedAt: new Date().toISOString(),
       expiresAt: new Date(this.newIngredient.expiresAt).toISOString()
-      };
+    };
 
     this.ingredientService.addIngredient(ingredientToSend).subscribe({
       next: created => {
-        this.ingredients = [...this.ingredients, created];
         this.closeModal();
-        this.isSaving = false;
+        
+        this.ingredients = [...this.ingredients, created];
         localStorage.setItem('ingredients', JSON.stringify(this.ingredients));
+
+        this.newIngredient = this.createEmptyIngredient();
+        this.isSaving = false;
       },
       error: () => {
+        this.errorMessage = 'Nem sikerült menteni.';
         this.isSaving = false;
       }
     });
@@ -117,5 +131,41 @@ export class Storage implements OnInit {
     });
 
     localStorage.setItem('shopping-list', JSON.stringify(items));
+  }
+
+  markAsUsed(ingredient: Ingredient): void {
+    this.selectedIngredient = ingredient;
+    this.showUsedModal = true;
+  }
+
+  confirmUsed(addToShoppingList: boolean): void {
+    if (!this.selectedIngredient) {
+      return;
+    }
+
+    const ingredient = this.selectedIngredient;
+
+    this.ingredientService.deleteIngredient(ingredient.id!).subscribe({
+      next: () => {
+        this.ingredients = this.ingredients.filter(i => i.id !== ingredient.id);
+        localStorage.setItem('ingredients', JSON.stringify(this.ingredients));
+
+        if (addToShoppingList) {
+          this.addToShoppingList(ingredient);
+        }
+
+        this.selectedIngredient = null;
+        this.showUsedModal = false;
+      },
+      error: err => {
+        console.error(err);
+        this.errorMessage = 'Nem sikerült törölni az alapanyagot.';
+      }
+    });
+  }
+
+  closeUsedModal(): void {
+    this.selectedIngredient = null;
+    this.showUsedModal = false;
   }
 }

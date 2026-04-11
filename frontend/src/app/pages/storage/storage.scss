@@ -1,59 +1,25 @@
-.storage-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.add-button {
-  padding: 10px 16px;
-}
-
-.ingredient-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 32px;
-}
-
-.ingredient-card {
-  width: 250px;
-  background: #f4f4f4;
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.modal-backdrop {
+.modal-backdrop-custom {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1050;
 }
 
-.modal {
-  background: white;
-  padding: 24px;
-  border-radius: 16px;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.modal-card {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 20px;
 }
 
-.modal input,
-.modal select,
-.modal button {
-  padding: 10px;
+.ingredient-card {
+  border-radius: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.error {
-  color: r
+.ingredient-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
 }

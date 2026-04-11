@@ -1,75 +1,240 @@
-<h1>Tárolók</h1>
+<div class="container py-4">
 
-<div class="storage-header">
-  <button class="add-button" (click)="openModal()">Új alapanyag</button>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="fw-bold mb-1">Tárolók</h1>
+      <p class="text-muted mb-0">Kezeld a hűtőben és tárolóban lévő alapanyagokat</p>
+    </div>
+
+    <button class="btn btn-primary btn-lg shadow-sm" type = "button" (click)="openModal()">
+      + Új alapanyag
+    </button>
+  </div>
+
+  @if (showModal) {
+    <div class="modal-backdrop-custom">
+      <div class="card shadow-lg border-0 modal-card">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mb-0">Új alapanyag</h3>
+            <button class="btn-close" type = "button" (click)="closeModal()"></button>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Név</label>
+            <input
+              class="form-control"
+              [(ngModel)]="newIngredient.name"
+              placeholder="pl. Tej"
+            />
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Mennyiség</label>
+              <input
+                class="form-control"
+                [(ngModel)]="newIngredient.quantity"
+                type="number"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Egység</label>
+              <input
+                class="form-control"
+                [(ngModel)]="newIngredient.unit"
+                placeholder="db, l, kg..."
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Hely</label>
+            <select class="form-select" [(ngModel)]="newIngredient.location">
+              <option value="fridge">Hűtő</option>
+              <option value="pantry">Tároló</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Lejárat</label>
+            <input
+              class="form-control"
+              [(ngModel)]="newIngredient.expiresAt"
+              type="date"
+            />
+          </div>
+
+          @if (errorMessage) {
+            <div class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button class="btn btn-outline-secondary" type="button" (click)="closeModal()">
+              Mégse
+            </button>
+
+            <button class="btn btn-success" type="button" (click)="saveIngredient()">
+              Hozzáadás
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="mb-5">
+    <div class="d-flex align-items-center mb-3">
+      <h2 class="me-2 mb-0">🧊 Hűtő</h2>
+      <span class="badge bg-primary rounded-pill">{{ fridgeIngredients.length }}</span>
+    </div>
+
+    @if (fridgeIngredients.length === 0) {
+      <div class="alert alert-light border">
+        Nincs alapanyag a hűtőben.
+      </div>
+    }
+
+    <div class="row g-4">
+      @for (ingredient of fridgeIngredients; track ingredient.id) {
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0 ingredient-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h4 class="card-title mb-0">{{ ingredient.name }}</h4>
+
+                <span class="badge bg-info text-dark">
+                  {{ ingredient.quantity }} {{ ingredient.unit }}
+                </span>
+              </div>
+
+              <p class="text-muted small mb-2">
+                Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}
+              </p>
+
+              <p class="mb-3">
+                <strong>Lejárat:</strong>
+                {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}
+              </p>
+
+              <div class="d-grid gap-2">
+                <button
+                  class="btn btn-outline-primary"
+                  type="button"
+                  (click)="addToShoppingList(ingredient)">
+                  Bevásárlólistához
+                </button>
+
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  (click)="markAsUsed(ingredient)">
+                  Felhasználtam
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div>
+    <div class="d-flex align-items-center mb-3">
+      <h2 class="me-2 mb-0">📦 Tároló</h2>
+      <span class="badge bg-secondary rounded-pill">{{ pantryIngredients.length }}</span>
+    </div>
+
+    @if (pantryIngredients.length === 0) {
+      <div class="alert alert-light border">
+        Nincs alapanyag a tárolóban.
+      </div>
+    }
+
+    <div class="row g-4">
+      @for (ingredient of pantryIngredients; track ingredient.id) {
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0 ingredient-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h4 class="card-title mb-0">{{ ingredient.name }}</h4>
+
+                <span class="badge bg-secondary">
+                  {{ ingredient.quantity }} {{ ingredient.unit }}
+                </span>
+              </div>
+
+              <p class="text-muted small mb-2">
+                Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}
+              </p>
+
+              <p class="mb-3">
+                <strong>Lejárat:</strong>
+                {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}
+              </p>
+
+              <div class="d-grid gap-2">
+                <button
+                  class="btn btn-outline-primary"
+                  type="button"
+                  (click)="addToShoppingList(ingredient)">
+                  Bevásárlólistához
+                </button>
+
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  (click)="markAsUsed(ingredient)">
+                  Felhasználtam
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
 </div>
 
-@if (showModal) {
-  <div class="modal-backdrop">
-    <div class="modal">
-      <h2>Új alapanyag</h2>
+@if (showUsedModal && selectedIngredient) {
+  <div class="modal-backdrop-custom">
+    <div class="card shadow-lg border-0 modal-card">
+      <div class="card-body p-4">
+        <h3 class="mb-3">Termék felhasználva</h3>
 
-      <input [(ngModel)]="newIngredient.name" placeholder="Név" />
+        <p>
+          A(z) <strong>{{ selectedIngredient.name }}</strong> terméket
+          felhasználtad.
+        </p>
 
-      <input [(ngModel)]="newIngredient.quantity" type="number" placeholder="Mennyiség" />
+        <p>Szeretnéd hozzáadni a bevásárlólistához?</p>
 
-      <input [(ngModel)]="newIngredient.unit" placeholder="Egység" />
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="closeUsedModal()">
+            Mégse
+          </button>
 
-      <select [(ngModel)]="newIngredient.location">
-        <option value="fridge">Hűtő</option>
-        <option value="pantry">Tároló</option>
-      </select>
+          <button
+            class="btn btn-danger"
+            type="button"
+            (click)="confirmUsed(false)">
+            Csak törlés
+          </button>
 
-      <input [(ngModel)]="newIngredient.expiresAt" type="date" />
-
-      @if (errorMessage) {
-        <p class="error">{{ errorMessage }}</p>
-      }
-
-      <div class="modal-actions">
-        <button type="button" (click)="closeModal()">Mégse</button>
-        <button type="button" (click)="saveIngredient()">Hozzáadás</button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="confirmUsed(true)">
+            Hozzáadás a bevásárlólistához
+          </button>
+        </div>
       </div>
     </div>
   </div>
 }
-
-<h2>Hűtő</h2>
-
-@if (fridgeIngredients.length === 0) {
-  <p>Nincs alapanyag a hűtőben.</p>
-}
-
-<div class="ingredient-grid">
-  @for (ingredient of fridgeIngredients; track ingredient.id) {
-    <div class="ingredient-card">
-      <h3>{{ ingredient.name }}</h3>
-      <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
-      <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
-      <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
-      <button type="button" (click)="addToShoppingList(ingredient)">
-        Bevásárlólistához
-      </button>
-    </div>
-  }
-</div>
-
-<h2>Tároló</h2>
-
-@if (pantryIngredients.length === 0) {
-  <p>Nincs alapanyag a tárolóban.</p>
-}
-
-<div class="ingredient-grid">
-  @for (ingredient of pantryIngredients; track ingredient.id) {
-    <div class="ingredient-card">
-      <h3>{{ ingredient.name }}</h3>
-      <p>Mennyiség: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
-      <p>Behelyezve: {{ ingredient.addedAt | date:'yyyy.MM.dd' }}</p>
-      <p>Lejárat: {{ ingredient.expiresAt | date:'yyyy.MM.dd' }}</p>
-      <button type="button" (click)="addToShoppingList(ingredient)">
-        Bevásárlólistához
-      </button>
-    </div>
-  }
-</div>
