@@ -1,7 +1,12 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  api:
+  mongo:
+    image: mongo:8
+    ports:
+      - "27017:27017"
+
+  backend:
     build:
       context: ./backend
     ports:
@@ -9,7 +14,10 @@ services:
     depends_on:
       - mongo
 
-  mongo:
-    image: mongo:8
+  frontend:
+    build:
+      context: ./frontend
     ports:
-      - "27017:27017"
+      - "80:80"
+    depends_on:
+      - backend
