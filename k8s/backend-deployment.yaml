@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smartpantry-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smartpantry-backend
+  template:
+    metadata:
+      labels:
+        app: smartpantry-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/adam026/smartpantry-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MongoDbSettings__ConnectionString
+              value: mongodb://mongo:27017
+            - name: MongoDbSettings__DatabaseName
+              value: SmartPantryDb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartpantry-backend
+spec:
+  selector:
+    app: smartpantry-backend
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP

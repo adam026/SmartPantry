@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smartpantry-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smartpantry-frontend
+  template:
+    metadata:
+      labels:
+        app: smartpantry-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/adam026/smartpantry-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartpantry-frontend
+spec:
+  selector:
+    app: smartpantry-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
