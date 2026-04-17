@@ -75,7 +75,7 @@ docker compose up --build
 Frontend:
 
 ```text
-http://localhost:4200
+http://localhost
 ```
 
 Backend Swagger:
@@ -258,6 +258,6 @@ Kubernetes Cluster
 
 # Készítette
 
-Tóth Ádám
+Tóth Ádám (X3325W)
 
 Alkalmazásfejlesztés beadandó – SmartPantry
